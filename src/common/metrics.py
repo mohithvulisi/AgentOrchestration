@@ -19,6 +19,8 @@ class MetricsCollector:
             self._counters[metric] += value
 
     def gauge(self, metric: str, value: float) -> None:
+        if not isinstance(value, (int, float)):
+            raise TypeError("gauge value must be numeric")
         with self._lock:
             self._gauges[metric] = value
 
